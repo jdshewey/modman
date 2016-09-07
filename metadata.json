@@ -1,0 +1,15 @@
+{
+  "name": "jdshewey-modman",
+  "version": "0.1.0",
+  "author": "James Shewey",
+  "summary": "A puppet module for managing puppet modules",
+  "license": "The Unlicense",
+  "source": "https://github.com/jdshewey/modman",
+  "project_page": "https://github.com/jdshewey/modman",
+  "issues_url": "https://github.com/jdshewey/modman/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
+

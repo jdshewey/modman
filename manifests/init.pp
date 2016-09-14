@@ -35,14 +35,63 @@
 # Authors
 # -------
 #
-# Author Name <author@domain.com>
+# James Shewey <jdshewey@gmail.com>
 #
 # Copyright
 # ---------
 #
-# Copyright 2016 Your name here, unless otherwise noted.
+# This is free and unencumbered software released into the public domain.
 #
-class modman {
+# Anyone is free to copy, modify, publish, use, compile, sell, or
+# distribute this software, either in source code form or as a compiled
+# binary, for any purpose, commercial or non-commercial, and by any
+# means.
+#
+# In jurisdictions that recognize copyright laws, the author or authors
+# of this software dedicate any and all copyright interest in the
+# software to the public domain. We make this dedication for the benefit
+# of the public at large and to the detriment of our heirs and
+# successors. We intend this dedication to be an overt act of
+# relinquishment in perpetuity of all present and future rights to this
+# software under copyright law.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+#
+# For more information, please refer to <http://unlicense.org>
+#
 
+class modman (
+	$target_dir = undef,
+	$environment = undef,
+	$modules = []
+){
+	each($modules) |$module|
+	{
+		$debug = get_module_path("${module['name']}")
+		notify {"$debug}": }
 
+		if ($module['ignore_dependancies'])
+		{
+			$ignore_dependancies = "--ignore-dependencies "
+		}
+
+		if has_key($module, 'version')
+		{
+			$version = "--version ${module['version']}"
+		}
+
+		exec
+		{
+			"`which puppet` module upgrade ${ignore_dependancies}${version}${module['name']}":
+				logoutput	=> on_failure,
+				path		=> [ '/bin', '/sbin', '/usr/bin', '/usr/sbin' ]
+		}
+	}
 }
+

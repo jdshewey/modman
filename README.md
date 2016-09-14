@@ -14,14 +14,13 @@
 
 ## Description
 
-Start with a one- or two-sentence summary of what the module does and/or what
-problem it solves. This is your 30-second elevator pitch for your module.
-Consider including OS/Puppet version it works with.
+Modman is a Puppet module for managing Puppet modules. Perhaps you have multiple 
+environments or locations and you need a puppet master for each location. If so, this module
+can Puppetize the setup of the Puppet server in your new environment by installing any missing 
+modules from a given list.
 
-You can give more descriptive information in a second paragraph. This paragraph
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?" If your module has a range of functionality (installation, configuration,
-management, etc.), this is the time to mention it.
+This module can also ensure that all of your modules are at the latest versions or install
+updates during a specified maintenance window.
 
 ## Setup
 

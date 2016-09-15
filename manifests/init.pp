@@ -73,24 +73,36 @@ class modman (
 ){
 	each($modules) |$module|
 	{
-		$debug = get_module_path("${module['name']}")
-		notify {"$debug}": }
-
-		if ($module['ignore_dependancies'])
+		$module_name = split($module['name'], '-')
+		$module_path = get_module_path("${module_name[1]}")
+		if ( $module_path == undef )
 		{
-			$ignore_dependancies = "--ignore-dependencies "
+			exec
+			{
+				"bash -c \"`source ~/.profile >> /dev/null; which puppet` module upgrade ${ignore_dependancies}${version}${module['name']}\"":
+					logoutput	=> on_failure,
+					path		=> [ '/bin', '/sbin', '/usr/bin', '/usr/sbin' ]
+			}
+
 		}
-
-		if has_key($module, 'version')
+		else
 		{
-			$version = "--version ${module['version']}"
-		}
-
-		exec
-		{
-			"`which puppet` module upgrade ${ignore_dependancies}${version}${module['name']}":
-				logoutput	=> on_failure,
-				path		=> [ '/bin', '/sbin', '/usr/bin', '/usr/sbin' ]
+			if ($module['ignore_dependancies'])
+			{
+				$ignore_dependancies = "--ignore-dependencies "
+			}
+                        
+			if has_key($module, 'version')
+			{
+				$version = "--version ${module['version']}"
+			}
+                        
+			exec
+			{
+				"bash -c \"`source ~/.bash_profile >> /dev/null; which puppet` module upgrade ${ignore_dependancies}${version}${module['name']}\"":
+					logoutput	=> on_failure,
+					path		=> [ '/bin', '/sbin', '/usr/bin', '/usr/sbin' ]
+			}
 		}
 	}
 }

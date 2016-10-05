@@ -1,15 +1,10 @@
-# modman
+# Modman
 
 #### Table of Contents
 
 1. [Description](#description)
-1. [Setup - The basics of getting started with modman](#setup)
-    * [What modman affects](#what-modman-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with modman](#beginning-with-modman)
-1. [Usage - Configuration options and additional functionality](#usage)
-1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-1. [Limitations - OS compatibility, etc.](#limitations)
+1. [Setup](#setup)
+1. [Usage](#usage)
 1. [Development - Guide for contributing to the module](#development)
 
 ## Description
@@ -24,59 +19,52 @@ updates during a specified maintenance window.
 
 ## Setup
 
-### What modman affects **OPTIONAL**
+To install modman, use
 
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
-
-If there's more that they should know about, though, this is the place to mention:
-
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section
-here.
-
-### Beginning with modman
-
-The very basic steps needed for a user to get the module up and running. This
-can include setup steps, if necessary, or it can be an example of the most
-basic use of the module.
+    puppet module install jdshewey-modman
 
 ## Usage
 
-This section is where you describe how to customize, configure, and do the
-fancy stuff with your module here. It's especially helpful if you include usage
-examples and code samples for doing things with your module.
+In it's least complicated usage, simply include the modman class in your main init.pp manifest
+with a list of modules you want to install or keep up to date
 
-## Reference
+```class
+```{
+```         'modman':
+```                 modules => [
+```                         { name  => "crayfishx-firewalld"},
+```                         { name  => "puppetlabs-stdlib"}
+```                 ]
+```}
 
-Here, include a complete list of your module's classes, types, providers,
-facts, along with the parameters for each. Users refer to this section (thus
-the name "Reference") to find specific details; most users don't read it per
-se.
+In the above example, if a module is not detected, the latest version will be installed. If it is
+if it is already installed, them modman will check for updates. 
 
-## Limitations
+However, you may find that you need to install to a non-default environment or directory,
+need to pin to a specific version of a module, that you want to intall updates only during a 
+specified maintenance window, and/or that you have dependancy conflicts and you need to ignore
+dependancies. If you need all of these, then the most complicated usage of modman would be:
 
-This is where you list OS compatibility, version compatibility, etc. If there
-are Known Issues, you might want to include them under their own heading here.
+```class
+```{
+```        'modman':
+```                modules => [
+```                        { name  => "crayfishx-firewalld"},
+```                        { name  => "puppetlabs-stdlib"}
+```                ]
+```}
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+Development of modman takes place at https://github.com/jdshewey/modman. If you wish to contribute 
+or have an issue to file, you may do so there.
 
-## Release Notes/Contributors/Etc. **Optional**
+## Release Notes
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel
-are necessary or important to include here. Please use the `## ` header.
+This module has not yet been released and is still in alpha
+TODO:
+ * Test version pinning
+ * Test ignoring dependancies
+ * Test non-default env
+ * Test non-default target dir
+ * Creat cron logic for maintenance window

@@ -74,7 +74,7 @@ class modman (
 	each($modules) |$module|
 	{
 		$module_name = split($module['name'], '-')
-		$module_path = get_module_path("${module_name[1]}")
+		$module_path = check_module("${module_name[1]}")
 
 		if ($module['ignore_dependancies'])
 		{

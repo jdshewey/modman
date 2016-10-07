@@ -28,14 +28,16 @@ To install modman, use
 In it's least complicated usage, simply include the modman class in your main init.pp manifest
 with a list of modules you want to install or keep up to date
 
-```class
-```{
-```         'modman':
-```                 modules => [
-```                         { name  => "crayfishx-firewalld"},
-```                         { name  => "puppetlabs-stdlib"}
-```                 ]
-```}
+```
+class
+{
+         'modman':
+                 modules => [
+                         { name  => "crayfishx-firewalld"},
+                         { name  => "puppetlabs-stdlib"}
+                 ]
+}
+```
 
 In the above example, if a module is not detected, the latest version will be installed. If it is
 if it is already installed, them modman will check for updates. 
@@ -45,14 +47,16 @@ need to pin to a specific version of a module, that you want to intall updates o
 specified maintenance window, and/or that you have dependancy conflicts and you need to ignore
 dependancies. If you need all of these, then the most complicated usage of modman would be:
 
-```class
-```{
-```        'modman':
-```                modules => [
-```                        { name  => "crayfishx-firewalld"},
-```                        { name  => "puppetlabs-stdlib"}
-```                ]
-```}
+```
+class
+{
+        'modman':
+                modules => [
+                        { name  => "crayfishx-firewalld"},
+                        { name  => "puppetlabs-stdlib"}
+                ]
+}
+```
 
 ## Development
 

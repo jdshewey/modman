@@ -70,8 +70,38 @@ class modman (
 	$target_dir = undef,
 	$environment = undef,
 	$modules = []
+	$maintenance_window = []
 ){
-	each($modules) |$module|
+	if size($maintenance_window) == 4
+	{
+		$hour = split($maintenance_window, '/')
+		if count($hour) == 1 and $hour[0] == strftime('%H') and is_interger($hour[0]) and $hour[0] >= 0 and $hour[0] < 25
+		{
+			$hour_trigger = 1
+		}
+		elsif ($hour[0] == '*')
+		{
+			if count($hour) == 1
+			{
+				$hour_trigger = 1
+			}
+			elsif count($hour) == 2 and is_interger($hour[0]) and is_interger($hour[1]) and $hour[0] == '*' and $hour[1] >= 0 and $hour[1] < 25 and strftime('%H')%$hour[1] == 0
+			{
+				$hour_trigger = 1
+			}
+		}
+			strftime('%d') #Day of the Month
+			strftime('%u') #Day of the week
+			strftime('%m') #Month of the year
+	}
+	elsif size($maintenance_window) == 0
+	{
+		class { 'modman::update': }
+	}
+}
+class modman::update inherits modman
+{
+	each($modman::modules) |$module|
 	{
 		$module_name = split($module['name'], '-')
 		$module_path = check_module("${module_name[1]}")

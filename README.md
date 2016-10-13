@@ -15,7 +15,7 @@ can Puppetize the setup of the Puppet server in your new environment by installi
 modules from a given list.
 
 This module can also ensure that all of your modules are at the latest versions by installing
-updates
+updates.
 
 ## Setup
 

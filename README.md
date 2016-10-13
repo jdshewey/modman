@@ -14,8 +14,8 @@ environments or locations and you need a puppet master for each location. If so,
 can Puppetize the setup of the Puppet server in your new environment by installing any missing 
 modules from a given list.
 
-This module can also ensure that all of your modules are at the latest versions or install
-updates during a specified maintenance window.
+This module can also ensure that all of your modules are at the latest versions by installing
+updates
 
 ## Setup
 
@@ -40,7 +40,7 @@ class
 ```
 
 In the above example, if a module is not detected, the latest version will be installed. If it is
-if it is already installed, them modman will check for updates. 
+if it is already installed, then modman will check for updates. 
 
 However, you may find that you need to install to a non-default environment or directory,
 need to pin to a specific version of a module, that you want to intall updates only during a 
@@ -51,12 +51,17 @@ dependancies. If you need all of these, then the most complicated usage of modma
 class
 {
         'modman':
-                modules => [
-                        { name  => "crayfishx-firewalld"},
-                        { name  => "puppetlabs-stdlib"}
+		target_dir 	=> "/etc/puppet/environment/test"
+		environment	=> "QA"
+                modules 	=> [
+                        { name  => "puppetlabs-stdlib", version => "4.10" },  #try_get_value deprecated in version 4.12, but we require it
+			{ name	=> "puppetlabs-firewall" },
+			{ name 	=> "example42-nfs", ignore_dependancies => true }
                 ]
 }
 ```
+
+Optionally, the ignore_dependancies and version options can be combined if needed.
 
 ## Development
 
@@ -65,10 +70,8 @@ or have an issue to file, you may do so there.
 
 ## Release Notes
 
-This module has not yet been released and is still in alpha
-TODO:
  * Test version pinning
  * Test ignoring dependancies
  * Test non-default env
  * Test non-default target dir
- * Creat cron logic for maintenance window
+ * We are planning to allow you to supply a cron-style time to the class to allow you to schedule the updates for a specific maintenance window

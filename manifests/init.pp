@@ -1,36 +1,31 @@
 # Class: modman
 # ===========================
 #
-# Full description of class modman here.
+# Modman is a Puppet module for managing Puppet modules. Perhaps you 
+# have multiple environments or locations and you need a puppet master for 
+# each location. If so, this module can Puppetize the setup of the Puppet 
+# server in your new environment by installing any missing modules from a 
+# given list.
 #
-# Parameters
-# ----------
-#
-# Document parameters here.
-#
-# * `sample parameter`
-# Explanation of what this parameter affects and what it defaults to.
-# e.g. "Specify one or more upstream ntp servers as an array."
-#
-# Variables
-# ----------
-#
-# Here you should define a list of variables that this module would require.
-#
-# * `sample variable`
-#  Explanation of how this variable affects the function of this class and if
-#  it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#  External Node Classifier as a comma separated list of hostnames." (Note,
-#  global variables should be avoided in favor of class parameters as
-#  of Puppet 2.6.)
+# This module can also ensure that all of your modules are at the latest 
+# versions by installing updates
 #
 # Examples
 # --------
 #
 # @example
-#    class { 'modman':
-#      servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#    }
+#
+# class
+# {
+#   'modman':
+#      target_dir      => "/etc/puppet/environment/test"
+#      environment     => "QA"
+#      modules         => [
+#              { name  => "puppetlabs-stdlib", version => "4.10" },  #try_get_value deprecated in version 4.12, but we require it
+#              { name  => "puppetlabs-firewall" },
+#              { name  => "example42-nfs", ignore_dependancies => true }
+#      ]
+# }
 #
 # Authors
 # -------
@@ -83,7 +78,7 @@ class modman (
                 
 		if has_key($module, 'version')
 		{
-			$version = "--version ${module['version']}"
+			$version = "--version ${module['version']} "
 		}
 
 		if ( $module_path == undef )

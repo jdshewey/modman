@@ -55,8 +55,8 @@ class
 		environment	=> "QA"
                 modules 	=> [
                         { name  => "puppetlabs-stdlib", version => "4.10" },  #try_get_value deprecated in version 4.12, but we require it
-			{ name	=> "puppetlabs-firewall" },
-			{ name 	=> "example42-nfs", ignore_dependancies => true }
+                        { name	=> "puppetlabs-firewall" },
+                        { name 	=> "example42-nfs", ignore_dependancies => true }
                 ]
 }
 ```

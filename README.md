@@ -15,7 +15,10 @@ can Puppetize the setup of the Puppet server in your new environment by installi
 modules from a given list.
 
 This module can also ensure that all of your modules are at the latest versions by installing
-updates.
+updates. While Code Manager or r10k can do this and much more, Code Manager requires a Puppet 
+Enterprise licese and r10k setup and management is extremely complicated. This is a much simpler
+system and can be thought of at Code Manager/r10k lite. It is perfect for those who are not coding
+much more than a basic module and are using mostly off-the-shelf Puppet Forge modules.
 
 ## Setup
 

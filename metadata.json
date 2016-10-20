@@ -1,6 +1,6 @@
 {
   "name": "jdshewey-modman",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "author": "James Shewey",
   "summary": "A puppet module for managing puppet modules",
   "license": "The Unlicense",

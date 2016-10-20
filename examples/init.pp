@@ -9,4 +9,15 @@
 # Learn more about module testing here:
 # https://docs.puppet.com/guides/tests_smoke.html
 #
-include ::modman
+
+class
+{
+        'modman':
+                target_dir  => "/etc/puppet/environment/test"
+                environment => "QA"
+                modules     => [
+                        { name  => "puppetlabs-stdlib", version => "4.10" },  #try_get_value deprecated in version 4.12, but we require it
+                        { name  => "puppetlabs-firewall" },
+                        { name  => "example42-nfs", ignore_dependancies => true }
+                ]
+}

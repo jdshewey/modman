@@ -13,8 +13,6 @@
 class
 {
         'modman':
-                target_dir  => "/etc/puppet/environment/test"
-                environment => "QA"
                 modules     => [
                         { name  => "puppetlabs-stdlib", version => "4.10" },  #try_get_value deprecated in version 4.12, but we require it
                         { name  => "puppetlabs-firewall" },
